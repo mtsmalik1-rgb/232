@@ -13,7 +13,7 @@
             --border-color: #e2e8f0;
         }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -27,7 +27,7 @@
             width: 100%;
             padding: 40px;
             border-radius: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
         .header {
             text-align: center;
@@ -36,7 +36,7 @@
         .header h1 {
             color: var(--primary-color);
             font-size: 28px;
-            margin-0: 0 0 10px 0;
+            margin: 0 0 10px 0;
         }
         .header p {
             color: #64748b;
@@ -96,6 +96,16 @@
             text-decoration: none;
             font-size: 14px;
         }
+        .alert {
+            display: none;
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -106,48 +116,45 @@
             <p>قم بملء البيانات الطبية للمريض بدقة</p>
         </div>
 
-        <form action="#">
+        <div id="successAlert" class="alert">تم حفظ النتيجة بنجاح! يمكنك استعراضها الآن.</div>
+
+        <form id="analysisForm">
             <div class="form-group">
                 <label>اسم المريض الكامل</label>
-                <input type="text" placeholder="مثال: محمد علي حسن" required>
+                <input type="text" id="patientName" placeholder="مثال: محمد علي حسن" required>
             </div>
 
             <div class="grid-2">
                 <div class="form-group">
                     <label>رقم الهوية / الملف</label>
-                    <input type="text" placeholder="ID-1029" required>
+                    <input type="text" id="patientId" placeholder="ID-1029" required>
                 </div>
                 <div class="form-group">
                     <label>عمر المريض</label>
-                    <input type="number" placeholder="25" required>
+                    <input type="number" id="patientAge" placeholder="25" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>نوع التحليل الطبي</label>
-                <select required>
+                <select id="testType" required>
                     <option value="">اختر التحليل...</option>
-                    <option value="cbc">تعداد الدم الكامل (CBC)</option>
-                    <option value="sugar">فحص السكر (Glucose)</option>
-                    <option value="kidney">وظائف الكلى (Kidney Function)</option>
-                    <option value="lipid">ملف الدهون (Lipid Profile)</option>
+                    <option value="تعداد الدم الكامل (CBC)">تعداد الدم الكامل (CBC)</option>
+                    <option value="فحص السكر (Glucose)">فحص السكر (Glucose)</option>
+                    <option value="وظائف الكلى (Kidney Function)">وظائف الكلى (Kidney Function)</option>
+                    <option value="ملف الدهون (Lipid Profile)">ملف الدهون (Lipid Profile)</option>
                 </select>
             </div>
 
             <div class="grid-2">
                 <div class="form-group">
                     <label>النتيجة الحالية</label>
-                    <input type="text" placeholder="مثال: 95 mg/dL" required>
+                    <input type="text" id="testResult" placeholder="مثال: 95 mg/dL" required>
                 </div>
                 <div class="form-group">
                     <label>المعدل الطبيعي (Reference)</label>
-                    <input type="text" placeholder="مثال: 70 - 100" required>
+                    <input type="text" id="testRef" placeholder="مثال: 70 - 100" required>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>ملاحظات الطبيب المخبري</label>
-                <textarea rows="3" placeholder="أية ملاحظات إضافية حول عينة المريض..."></textarea>
             </div>
 
             <button type="submit" class="btn-submit">حفظ وإرسال النتيجة</button>
@@ -156,5 +163,33 @@
         <a href="results.html" class="nav-link">الانتقال إلى صفحة عرض النتائج ←</a>
     </div>
 
+    <script>
+        document.getElementById('analysisForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // منع الصفحة من إعادة التحميل الافتراضية
+            
+            // تجميع البيانات المدخلة
+            const patientData = {
+                name: document.getElementById('patientName').value,
+                id: document.getElementById('patientId').value,
+                age: document.getElementById('patientAge').value,
+                testName: document.getElementById('testType').value,
+                result: document.getElementById('testResult').value,
+                reference: document.getElementById('testRef').value,
+                date: new Date().toLocaleDateString('ar-EG')
+            };
+
+            // حفظها في متصفح المستخدم
+            localStorage.setItem('latestPatientReport', JSON.stringify(patientData));
+
+            // إظهار رسالة النجاح وتصفير الاستمارة
+            document.getElementById('successAlert').style.display = 'block';
+            document.getElementById('analysisForm').reset();
+            
+            // إخفاء التنبيه تلقائياً بعد 3 ثواني
+            setTimeout(() => {
+                document.getElementById('successAlert').style.display = 'none';
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
