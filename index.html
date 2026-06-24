@@ -3,106 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الشخصي الأول</title>
+    <title>نظام التحاليل الطبية - إدخال النتائج</title>
     <style>
+        :root {
+            --primary-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 500px;
-            width: 100%;
-        }
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 17px;
-            line-height: 1.6;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background-color: #218838;
-        }
-        /* الأقسام الجديدة التي تم إضافتها كتكملة للكود */
-        .section-title {
-            font-size: 20px;
-            color: #333;
-            margin-top: 25px;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 5px;
-            display: inline-block;
-        }
-        .social-links {
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
         }
-        .social-btn {
-            padding: 8px 15px;
-            background-color: #e9ecef;
-            color: #495057;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: 0.3s;
+        .form-container {
+            background: var(--card-bg);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
-        .social-btn:hover {
-            background-color: #007bff;
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-0: 0 0 10px 0;
+        }
+        .header p {
+            color: #64748b;
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #f1f5f9;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary-color);
             color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            background-color: #0369a1;
+        }
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="card">
-            <h1>أهلاً بك في موقعي الأول! 🎉</h1>
-            <p>هذا الموقع تم إنشاؤه للتجربة واستضافته مجاناً على جيتهاب بايجز (GitHub Pages).</p>
-            <a href="#about" class="btn">اكتشف المزيد عني 👇</a>
-            
-            <div id="about">
-                <h2 class="section-title">من أنا؟</h2>
-                <p>أنا مطور مواقع مبتدئ، أتعلم حالياً كيفية بناء المواقع باستخدام HTML و CSS، وهذا هو مشروعي الأول على منصة GitHub!</p>
+    <div class="form-container">
+        <div class="header">
+            <h1>إدخال نتائج التحاليل 🧪</h1>
+            <p>قم بملء البيانات الطبية للمريض بدقة</p>
+        </div>
+
+        <form action="#">
+            <div class="form-group">
+                <label>اسم المريض الكامل</label>
+                <input type="text" placeholder="مثال: محمد علي حسن" required>
             </div>
 
-            <div>
-                <h2 class="section-title">تواصل معي</h2>
-                <div class="social-links">
-                    <a href="#" class="social-btn">حسابي في X</a>
-                    <a href="#" class="social-btn">لينكد إن</a>
-                    <a href="https://github.com/mtsmalik1-rgb" class="social-btn" target="_blank">جيتهاب</a>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>رقم الهوية / الملف</label>
+                    <input type="text" placeholder="ID-1029" required>
+                </div>
+                <div class="form-group">
+                    <label>عمر المريض</label>
+                    <input type="number" placeholder="25" required>
                 </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label>نوع التحليل الطبي</label>
+                <select required>
+                    <option value="">اختر التحليل...</option>
+                    <option value="cbc">تعداد الدم الكامل (CBC)</option>
+                    <option value="sugar">فحص السكر (Glucose)</option>
+                    <option value="kidney">وظائف الكلى (Kidney Function)</option>
+                    <option value="lipid">ملف الدهون (Lipid Profile)</option>
+                </select>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>النتيجة الحالية</label>
+                    <input type="text" placeholder="مثال: 95 mg/dL" required>
+                </div>
+                <div class="form-group">
+                    <label>المعدل الطبيعي (Reference)</label>
+                    <input type="text" placeholder="مثال: 70 - 100" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ملاحظات الطبيب المخبري</label>
+                <textarea rows="3" placeholder="أية ملاحظات إضافية حول عينة المريض..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">حفظ وإرسال النتيجة</button>
+        </form>
+
+        <a href="results.html" class="nav-link">الانتقال إلى صفحة عرض النتائج ←</a>
     </div>
 
 </body>
