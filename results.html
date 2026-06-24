@@ -11,7 +11,6 @@
             --card-bg: #ffffff;
             --text-color: #1e293b;
             --success: #10b981;
-            --danger: #ef4444;
         }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
@@ -61,9 +60,6 @@
         .meta-item strong {
             font-size: 16px;
         }
-        .table-responsive {
-            overflow-x: auto;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -87,14 +83,8 @@
             font-size: 12px;
             font-weight: bold;
             display: inline-block;
-        }
-        .badge.normal {
             background-color: #d1fae5;
             color: var(--success);
-        }
-        .badge.high {
-            background-color: #fee2e2;
-            color: var(--danger);
         }
         .print-btn {
             background: var(--primary-color);
@@ -106,17 +96,17 @@
             font-size: 14px;
             transition: 0.3s;
         }
-        .print-btn:hover {
-            background: #0369a1;
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 18px;
         }
         .back-link {
             margin-top: 25px;
             color: #64748b;
             text-decoration: none;
             font-size: 14px;
-        }
-        .back-link:hover {
-            color: var(--primary-color);
         }
     </style>
 </head>
@@ -131,60 +121,61 @@
             <a href="#" onclick="window.print()" class="print-btn">طباعة التقرير 🖨️</a>
         </div>
 
-        <div class="patient-meta">
-            <div class="meta-item">
-                <span>اسم المريض</span>
-                <strong>أحمد سمير مصطفى</strong>
+        <div id="reportContent">
+            <div class="patient-meta">
+                <div class="meta-item"><span>اسم المريض</span><strong id="lblName">-</strong></div>
+                <div class="meta-item"><span>رقم الملف</span><strong id="lblId">-</strong></div>
+                <div class="meta-item"><span>العمر</span><strong id="lblAge">-</strong></div>
+                <div class="meta-item"><span>تاريخ الفحص</span><strong id="lblDate">-</strong></div>
             </div>
-            <div class="meta-item">
-                <span>رقم الملف</span>
-                <strong>#23490</strong>
-            </div>
-            <div class="meta-item">
-                <span>العمر / الجنس</span>
-                <strong>32 سنة / ذكر</strong>
-            </div>
-            <div class="meta-item">
-                <span>تاريخ الفحص</span>
-                <strong>2026-06-24</strong>
-            </div>
-        </div>
 
-        <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
                         <th>اسم الفحص (Test)</th>
                         <th>النتيجة (Result)</th>
                         <th>المعدل الطبيعي</th>
-                        <th>الحالة (Status)</th>
+                        <th>الحالة</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Fasting Blood Sugar (سكر الصائم)</td>
-                        <td><strong>105 mg/dL</strong></td>
-                        <td>70 - 100</td>
-                        <td><span class="badge high">مرتفع قليلاً</span></td>
-                    </tr>
-                    <tr>
-                        <td>Hemoglobin (الهيموغلوبين)</td>
-                        <td><strong>14.2 g/dL</strong></td>
-                        <td>13.5 - 17.5</td>
-                        <td><span class="badge normal">طبيعي</span></td>
-                    </tr>
-                    <tr>
-                        <td>Cholesterol (الكوليسترول)</td>
-                        <td><strong>185 mg/dL</strong></td>
-                        <td>أقل من 200</td>
-                        <td><span class="badge normal">طبيعي</span></td>
+                        <td id="lblTestName">-</td>
+                        <td><strong id="lblResult">-</strong></td>
+                        <td id="lblRef">-</td>
+                        <td><span class="badge">مكتمل</span></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div id="noDataMessage" class="no-data" style="display: none;">
+            ⚠️ لم يتم إدخال أو تسجيل أي نتائج بعد.
         </div>
     </div>
 
     <a href="index.html" class="back-link">← العودة لصفحة إدخال البيانات</a>
 
+    <script>
+        // قراءة البيانات المخزنة عند تحميل الصفحة
+        const storedData = localStorage.getItem('latestPatientReport');
+
+        if (storedData) {
+            const data = JSON.parse(storedData);
+            
+            // توزيع البيانات داخل التقرير
+            document.getElementById('lblName').innerText = data.name;
+            document.getElementById('lblId').innerText = data.id;
+            document.getElementById('lblAge').innerText = data.age + " سنة";
+            document.getElementById('lblDate').innerText = data.date;
+            document.getElementById('lblTestName').innerText = data.testName;
+            document.getElementById('lblResult').innerText = data.result;
+            document.getElementById('lblRef').innerText = data.reference;
+        } else {
+            // إذا لم تكن هناك بيانات، أخفِ الجدول واعرض رسالة تنبيه
+            document.getElementById('reportContent').style.display = 'none';
+            document.getElementById('noDataMessage').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
