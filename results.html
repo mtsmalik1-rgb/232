@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة النتائج الطبية</title>
+    <style>
+        :root {
+            --primary-color: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .results-container {
+            background: var(--card-bg);
+            max-width: 750px;
+            width: 100%;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .header-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .header-box h2 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+        .patient-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+        .meta-item span {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .meta-item strong {
+            font-size: 16px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+        th {
+            background-color: #f8fafc;
+            color: #64748b;
+            padding: 14px;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        td {
+            padding: 16px 14px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 15px;
+        }
+        .badge {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .badge.normal {
+            background-color: #d1fae5;
+            color: var(--success);
+        }
+        .badge.high {
+            background-color: #fee2e2;
+            color: var(--danger);
+        }
+        .print-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .print-btn:hover {
+            background: #0369a1;
+        }
+        .back-link {
+            margin-top: 25px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="results-container">
+        <div class="header-box">
+            <div>
+                <h2>تقرير النتيجة الطبية 📄</h2>
+                <small style="color:#64748b">مختبرات المستقبل الحديثة</small>
+            </div>
+            <a href="#" onclick="window.print()" class="print-btn">طباعة التقرير 🖨️</a>
+        </div>
+
+        <div class="patient-meta">
+            <div class="meta-item">
+                <span>اسم المريض</span>
+                <strong>أحمد سمير مصطفى</strong>
+            </div>
+            <div class="meta-item">
+                <span>رقم الملف</span>
+                <strong>#23490</strong>
+            </div>
+            <div class="meta-item">
+                <span>العمر / الجنس</span>
+                <strong>32 سنة / ذكر</strong>
+            </div>
+            <div class="meta-item">
+                <span>تاريخ الفحص</span>
+                <strong>2026-06-24</strong>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم الفحص (Test)</th>
+                        <th>النتيجة (Result)</th>
+                        <th>المعدل الطبيعي</th>
+                        <th>الحالة (Status)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fasting Blood Sugar (سكر الصائم)</td>
+                        <td><strong>105 mg/dL</strong></td>
+                        <td>70 - 100</td>
+                        <td><span class="badge high">مرتفع قليلاً</span></td>
+                    </tr>
+                    <tr>
+                        <td>Hemoglobin (الهيموغلوبين)</td>
+                        <td><strong>14.2 g/dL</strong></td>
+                        <td>13.5 - 17.5</td>
+                        <td><span class="badge normal">طبيعي</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cholesterol (الكوليسترول)</td>
+                        <td><strong>185 mg/dL</strong></td>
+                        <td>أقل من 200</td>
+                        <td><span class="badge normal">طبيعي</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">← العودة لصفحة إدخال البيانات</a>
+
+</body>
+</html>
